@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.mensajePC{
+    display: none;
+}
+
+.barraNavegacion{
+    display: block;
+    width: 100vw;
+    height: 80px;
+    background-color: rgb(21, 20, 20) ;
+}
+
+.contenido{
+    display: block;
+}
+
+.piePagina{
+    display: block;
+}
+
+@media(min-width:768px){
+    .mensajePC{
+        width: 100vw;
+        height: 100vh;
+        background-color:rgb(21, 20, 20) ;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .mensajePC-texto{
+        color: white;
+        text-align: center;
+        font-size: 30px;
+    
+    }
+    .barraNavegacion, .contenido,.piePagina{
+        display: none;
+    }
+}
