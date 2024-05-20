@@ -11,9 +11,15 @@
     background-color: blue;
     width: 100vw;
     height: 60px;
+    padding: 20px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+}
+
+.icono{
+    font-size: 20px;
+    color: white;
 }
 
 .titulo {
@@ -22,38 +28,11 @@
     font-size: 20px;
 }
 
-.contenido-principal{
+.app{
     display: block;
     position: relative;
 }
-.tarjeta{
-    background-color: blue;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    gap:10px;
-    align-items: center;
-    color: white;
-}
 
-.input{
-    width: 100%;
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-
-}
-.boton{
-    width: 100%;
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-
-}
 
 .tarjeta-confirmacion{
     width: 200px;
@@ -87,7 +66,7 @@
     .encabezado{
         display: none;
     }
-    .contenido-principal{
+    .app{
         display: none;
     }
 }

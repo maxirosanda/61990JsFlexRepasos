@@ -9,13 +9,13 @@ paradigma -> funcional(funciones y objetos literales) o orientado a objetos(clas
 metodos de arrays -> push,splice,etc
 metodos de busqueda y transformacion -> find o/y filter o/y some o/y reduce o/y findIndex , etc
 manipulacion del dom -> getElementById / innerText / createElement / append / remove / value 
-eventos -> 
+eventos -> click o/y submit o/y change o/y blur
 
 */
 
 let tareas = []
 
-const agregarTareas = (nombre,contenido) => {
+const agregarTareasAlmacenamiento = (nombre,contenido) => {
     const tarea = {
         id : crypto.randomUUID(),
         fecha: new Date(),
@@ -28,84 +28,125 @@ const agregarTareas = (nombre,contenido) => {
     return tarea
 }
 
-const traerTareas = () => {
-    return JSON.parse( localStorage.getItem("tareas")) || []
+const traerTareasAlmacenamiento = () => {
+   return JSON.parse( localStorage.getItem("tareas")) || []
 
 }
 
-const borrarTarea = (id) => {
+const borrarTareaAlmacenamiento = (id) => {
 
-    const tareasFiltradas = tareas.filter(tarea => tarea.id != id)
-    localStorage.setItem("tareas",JSON.stringify(tareasFiltradas))
-    return tareasFiltradas
+    tareas = tareas.filter(tarea => tarea.id != id)
+    localStorage.setItem("tareas",JSON.stringify(tareas))
+    return true
 
 }
 
-const actualizarTarea = (nuevaTarea) => {
+const actualizarTareaAlmacenamiento = (id,nombreNuevo,contenidoNuevo) => {
 
-    const tareasActualizadas = tareas.map((tarea)=>{
-        if(tarea.id === nuevaTarea.id){
+    tareas = tareas.map((tarea)=>{
+        if(tarea.id === id){
             return {
-                id:tarea.id,
+                id:id,
                 fecha: new Date(),
-                nombre : nuevaTarea.nombre || tarea.nombre,
-                contenido: nuevaTarea.contenido || tarea.contenido
+                nombre : nombreNuevo,
+                contenido: contenidoNuevo
             }
         }
+        return tarea
     })
-    localStorage.setItem("tareas",tareasActualizadas)
-    return tareasActualizadas
+    localStorage.setItem("tareas",JSON.stringify(tareas))
+    return true
 }
 
 const crearTarjeta = (tarea) => {
-    const contenidoPrincipal = document.getElementById("contenidoPrincipal")
-    const tarjeta = document.createElement("div")
-    tarjeta.className = "tarjeta"
-    tarjeta.id = tarea.id
-    tarjeta.innerHTML = `
-        <input type="text" id="nombreTarea" class="input" value="${tarea.nombre}">
-        <textarea type="text" id="contenidoTarea" class="input">${tarea.contenido}</textarea>
-        <button class="boton btn-actualizar" id="${tarea.id}">Actualizar</button>
-        <button class="boton btn-borrar" id="${tarea.id}">Borrar</button>
+    const app = document.getElementById("app")
+    const element = document.createElement("div")
+    element.className = "tarjeta"
+    element.id = tarea.id
+    element.innerHTML = `
+        <input type="text"  class="input" value="${tarea.nombre}">
+        <textarea type="text"  class="input">${tarea.contenido}</textarea>
+        <button class="boton btn-actualizar">Actualizar</button>
+        <button class="boton btn-borrar">Borrar</button>
     `
-    contenidoPrincipal.append(tarjeta)
-    return tarjeta
+    app.append(element)
+}
+
+const crearTarjetaAgregar = () => {
+
+    const app = document.getElementById("app")
+    const element = document.createElement("div")
+    element.className = "tarjeta"
+    element.innerHTML = `
+            <input type="text" id="nombreTarea" class="input" placeholder="Nombre de la tarea" required>
+            <textarea type="text" id="contenidoTarea" class="input" placeholder="Agregar contenido de la tarea" required></textarea>
+            <button  class="boton btn-agregar">Agregar tarea</button>
+    `
+    app.append(element)
+
+
+
+
 }
 
 const borrarTarjeta = (id) => {
 
-    const tarjeta = document.getElementById(id)
-    tarjeta.remove()
+    const element = document.getElementById(id)
+    element.remove()
+}
+
+const confirmacion = (accion) => {
+    const app = document.getElementById("app")
+    const element = document.createElement("div")
+    element.className = "tarjeta-confirmacion"
+    element.innerHTML = `
+        <p class="tarjeta-confirmacion-texto">se a ${accion} correctamente</p>
+    `
+    app.append(element)
+    setTimeout(()=>{
+        element.remove()
+    },1000)
 }
 
 const principal = () => {
 
-    tareas = traerTareas()
+    crearTarjetaAgregar()
+    tareas = traerTareasAlmacenamiento()
     tareas.forEach(tarea => {
         crearTarjeta(tarea)
     })
+    
+    const app = document.getElementById("app")
 
-    const buttonAgregarTarea = document.getElementById("buttonAgregarTarea")
-    buttonAgregarTarea.addEventListener("click",()=>{
-        const contenidoTarea = document.getElementById("contenidoTarea").value 
-        const nombreTarea = document.getElementById("nombreTarea").value 
-        const nuevaTarea = agregarTareas(nombreTarea,contenidoTarea)
-        crearTarjeta(nuevaTarea)
-    })
+    app.addEventListener("click", (event) => {
 
-    const contenidoPrincipal = document.getElementById("contenidoPrincipal");
+        if(event.target && event.target.classList.contains('btn-agregar')){
+            const parentElement = event.target.parentElement
+            const inputs =  parentElement.getElementsByClassName('input')
+            const nombreNuevo = inputs[0].value
+            const contenidoNuevo = inputs[1].value
+           
+            const nuevaTarea = agregarTareasAlmacenamiento(nombreNuevo,contenidoNuevo)
+            crearTarjeta(nuevaTarea)
+            if(nuevaTarea) confirmacion("agregada")
+            inputs[0].value = ""
+            inputs[1].value =""
+        }
 
-    contenidoPrincipal.addEventListener("click", (event) => {
         if (event.target && event.target.classList.contains('btn-borrar')) {
-            const id = event.target.id
-            tareas = borrarTarea(id)
+            const id = event.target.parentElement.id
+            const borrada = borrarTareaAlmacenamiento(id)
+            if(borrada) confirmacion("borrada")
             borrarTarjeta(id)
-            console.log("ID del botón borrar:", id)
         }
         if (event.target && event.target.classList.contains('btn-actualizar')) {
-            const id = event.target.id
-            tareas = actualizarTarea(id)
-            console.log("ID del botón Actualizar:", id)
+            const parentElement = event.target.parentElement
+            const id = parentElement.id
+            const inputs =  parentElement.getElementsByClassName('input')
+            const nombreNuevo = inputs[0].value
+            const contenidoNuevo = inputs[1].value
+            const actualizada = actualizarTareaAlmacenamiento(id,nombreNuevo,contenidoNuevo)
+            if(actualizada) confirmacion("actualizada")
         }
     })
 
