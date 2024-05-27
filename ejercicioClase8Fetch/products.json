@@ -1,0 +1,64 @@
+{
+  "products":[
+      {
+        "nombre": "Laptop Dell Inspiron",
+        "descripcion": "Laptop Dell Inspiron con procesador Intel i5, 8GB RAM, 256GB SSD",
+        "precio": 750.00,
+        "stock": 10
+      },
+      {
+        "nombre": "Teclado Mecánico Corsair K95",
+        "descripcion": "Teclado mecánico RGB con interruptores Cherry MX",
+        "precio": 199.99,
+        "stock": 25
+      },
+      {
+        "nombre": "Mouse Logitech MX Master 3",
+        "descripcion": "Mouse inalámbrico con precisión láser y batería recargable",
+        "precio": 99.99,
+        "stock": 40
+      },
+      {
+        "nombre": "Monitor Samsung Curvo 27''",
+        "descripcion": "Monitor curvo de 27 pulgadas con resolución 4K UHD",
+        "precio": 349.99,
+        "stock": 15
+      },
+      {
+        "nombre": "Disco Duro Externo Seagate 2TB",
+        "descripcion": "Disco duro externo portátil de 2TB con conexión USB 3.0",
+        "precio": 89.99,
+        "stock": 30
+      },
+      {
+        "nombre": "Memoria RAM Kingston 16GB",
+        "descripcion": "Módulo de memoria RAM DDR4 de 16GB",
+        "precio": 79.99,
+        "stock": 50
+      },
+      {
+        "nombre": "Tarjeta Gráfica NVIDIA RTX 3080",
+        "descripcion": "Tarjeta gráfica NVIDIA GeForce RTX 3080 con 10GB GDDR6X",
+        "precio": 699.99,
+        "stock": 8
+      },
+      {
+        "nombre": "Placa Base ASUS ROG Strix B550-F",
+        "descripcion": "Placa base ASUS para procesadores AMD Ryzen, con soporte para PCIe 4.0",
+        "precio": 189.99,
+        "stock": 20
+      },
+      {
+        "nombre": "Fuente de Alimentación Corsair RM850x",
+        "descripcion": "Fuente de alimentación modular de 850W con certificación 80 PLUS Gold",
+        "precio": 129.99,
+        "stock": 12
+      },
+      {
+        "nombre": "Caja de PC NZXT H510",
+        "descripcion": "Caja de PC ATX con panel lateral de vidrio templado y gestión de cables",
+        "precio": 99.99,
+        "stock": 22
+      }
+    ]
+}
